@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Valentine, My Future Wife</title>
+  <title>My Valentine</title>
   <style>
     * {
       margin: 0;
@@ -19,58 +19,13 @@
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       font-family: 'Arial', sans-serif;
       color: #333;
-      position: relative;
-      overflow: hidden;
+      padding: 20px;
     }
-
-    .heart-float {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    .heart {
-      position: absolute;
-      font-size: clamp(10px, 3vw, 20px);
-      color: #e91e63;
-      opacity: 0.7;
-      animation: float 8s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .heart:nth-child(2) { left: 25%; animation-delay: 2s; }
-    .heart:nth-child(3) { left: 40%; animation-delay: 4s; }
-    .heart:nth-child(4) { left: 55%; animation-delay: 1s; }
-    .heart:nth-child(5) { left: 70%; animation-delay: 3s; }
-    .heart:nth-child(6) { left: 85%; animation-delay: 5s; }
 
     .card {
-      position: relative;
-      z-index: 2;
-      padding: 30px 25px;
       max-width: 400px;
+      width: 100%;
+      padding: 30px 25px;
       background: rgba(255, 255, 255, 0.95);
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -81,12 +36,12 @@
     h1 {
       margin-bottom: 15px;
       color: #e91e63;
-      font-size: 24px;
+      font-size: 22px;
     }
 
     p {
       font-size: 16px;
-      line-height: 1.7;
+      line-height: 1.6;
       margin-bottom: 20px;
     }
 
@@ -95,110 +50,190 @@
       color: #e91e63;
     }
 
-    .share-buttons {
-      margin-top: 20px;
+    /* Toggle switches */
+    .toggle-container {
+      margin: 15px 0;
       display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
 
-    .btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 50px;
+    .toggle-label {
       font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3);
+      color: #555;
     }
 
-    .btn-primary {
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 24px;
+      transition: 0.3s;
+    }
+
+    .slider::before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+
+    input:checked + .slider {
+      background-color: #e91e63;
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(26px);
+    }
+
+    /* Hidden names */
+    .name-box {
+      margin: 10px 0;
+      font-size: 18px;
+      color: #e91e63;
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .name-box.visible {
+      opacity: 1;
+      height: auto;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    /* Send message link */
+    .send-link {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 50px;
       background: linear-gradient(45deg, #ff69b4, #ff1493);
       color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .btn-outline {
-      background: transparent;
-      border: 2px solid #e91e63;
-      color: #e91e63;
-    }
-
-    .btn:active,
-    .btn:hover {
+    .send-link:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(233, 30, 99, 0.4);
-    }
-
-    .btn-outline:active,
-    .btn-outline:hover {
-      background: #e91e63;
-      color: white;
-    }
-
-    @media (max-width: 500px) {
-      .card {
-        padding: 25px 20px;
-        max-width: 90%;
-      }
-      .heart:nth-child(n+4) {
-        display: none;
-      }
+      box-shadow: 0 6px 15px rgba(233, 30, 99, 0.4);
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating hearts -->
-  <div class="heart-float">
-    <div class="heart">❤️</div>
-    <div class="heart">💖</div>
-    <div class="heart">💕</div>
-    <div class="heart">💓</div>
-    <div class="heart">💗</div>
-    <div class="heart">💘</div>
-  </div>
-
-  <!-- Valentine card -->
   <div class="card">
-    <h1>💌 To My Future Wife</h1>
+    <h1>💌 My Valentine</h1>
+
     <p>
-      To <span class="names">Priya</span>,<br><br>
-      You are not just my love; you are my home, my peace, and my greatest dream.  
-      With every heartbeat, I fall in love with you a little more.  
-      I promise to stand by you, cherish you, and walk beside you through every season of life.<br><br>
-      From <span class="names">Rahul</span>
+      To my future wife,<br>
+      <span id="boy-name" class="names name-box"></span>
+      <span id="girl-name" class="names name-box"></span>
+      <br>
+      You mean the world to me. With every heartbeat, I fall in love with you a little more.
     </p>
 
-    <!-- Share buttons -->
-    <div class="share-buttons">
-      <a href="mailto:?subject=My Valentine's Wish&body=Hey! I made a special Valentine's page for you: https://yourname.github.io/valentine.html" class="btn btn-primary">
-        📧 Email the Link
-      </a>
-      <a href="sms:?&body=Hey! I made a special Valentine's page for you: https://yourname.github.io/valentine.html" class="btn btn-outline">
-        💬 SMS the Link
-      </a>
+    <!-- Toggle switches -->
+    <div class="toggle-container">
+      <label class="toggle-label">
+        Reveal the Boy's name
+        <label class="switch">
+          <input type="checkbox" id="toggle-boy" />
+          <span class="slider"></span>
+        </label>
+      </label>
+
+      <label class="toggle-label">
+        Reveal the Girl's name
+        <label class="switch">
+          <input type="checkbox" id="toggle-girl" />
+          <span class="slider"></span>
+        </label>
+      </label>
     </div>
+
+    <!-- Send message link -->
+    <a href="#" id="send-link" class="send-link">
+      💬 Send the Valentine Message
+    </a>
   </div>
 
   <script>
     // Customize these values
-    const NAME1 = "Priya";
-    const NAME2 = "Rahul";
+    const BOY_NAME = "Rahul";
+    const GIRL_NAME = "Priya";
     const WISH = `
+      To my future wife, ${GIRL_NAME},
+
+
       You are not just my love; you are my home, my peace, and my greatest dream.
+
       With every heartbeat, I fall in love with you a little more.
+
       I promise to stand by you, cherish you, and walk beside you through every season of life.
+
+
+      From ${BOY_NAME}
     `;
 
-    document.querySelector(".names:nth-of-type(1)").textContent = "Rachana";
-    document.querySelector(".names:nth-of-type(2)").textContent = "Yaswanth";
-    document.querySelector("p").innerHTML = `
-      To <span class="names">${NAME1}</span>,<br><br>
-      ${WISH}<br><br>
-      From <span class="names">${NAME2}</span>
-    `;
+    const toggleBoy = document.getElementById("toggle-boy");
+    const toggleGirl = document.getElementById("toggle-girl");
+    const boyNameEl = document.getElementById("boy-name");
+    const girlNameEl = document.getElementById("girl-name");
+    const sendLink = document.getElementById("send-link");
+
+    toggleBoy.addEventListener("change", () => {
+      if (toggleBoy.checked) {
+        boyNameEl.textContent = BOY_NAME;
+        boyNameEl.classList.add("visible");
+      } else {
+        boyNameEl.classList.remove("visible");
+      }
+    });
+
+    toggleGirl.addEventListener("change", () => {
+      if (toggleGirl.checked) {
+        girlNameEl.textContent = GIRL_NAME;
+        girlNameEl.classList.add("visible");
+      } else {
+        girlNameEl.classList.remove("visible");
+      }
+    });
+
+    // When the link is clicked, open email with the message
+    sendLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      const subject = "My Valentine's Wish";
+      const body = encodeURIComponent(WISH);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    });
   </script>
 
 </body>
