@@ -1,58 +1,206 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My Valentine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To my known Stranger</title>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      text-align: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      position: relative;
+      overflow: hidden;
     }
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      max-width: 400px;
+
+    .heart-float {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
     }
-    h1 {
+
+    .heart {
+      position: absolute;
+      font-size: clamp(10px, 3vw, 20px);
       color: #e91e63;
-      margin-bottom: 10px;
+      opacity: 0.7;
+      animation: float 8s infinite ease-in-out;
     }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .heart:nth-child(2) { left: 25%; animation-delay: 2s; }
+    .heart:nth-child(3) { left: 40%; animation-delay: 4s; }
+    .heart:nth-child(4) { left: 55%; animation-delay: 1s; }
+    .heart:nth-child(5) { left: 70%; animation-delay: 3s; }
+    .heart:nth-child(6) { left: 85%; animation-delay: 5s; }
+
+    .card {
+      position: relative;
+      z-index: 2;
+      padding: 30px 25px;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      border: 1px solid rgba(233, 30, 99, 0.2);
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      color: #e91e63;
+      font-size: 24px;
+    }
+
     p {
-      color: #555;
-      line-height: 1.6;
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 20px;
     }
+
     .names {
       font-weight: bold;
       color: #e91e63;
     }
+
+    .share-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #ff69b4, #ff1493);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #e91e63;
+      color: #e91e63;
+    }
+
+    .btn:active,
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(233, 30, 99, 0.4);
+    }
+
+    .btn-outline:active,
+    .btn-outline:hover {
+      background: #e91e63;
+      color: white;
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 25px 20px;
+        max-width: 90%;
+      }
+      .heart:nth-child(n+4) {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Floating hearts -->
+  <div class="heart-float">
+    <div class="heart">❤️</div>
+    <div class="heart">💖</div>
+    <div class="heart">💕</div>
+    <div class="heart">💓</div>
+    <div class="heart">💗</div>
+    <div class="heart">💘</div>
+  </div>
+
+  <!-- Valentine card -->
   <div class="card">
-    <h1>Happy Valentine’s Day 💕</h1>
-    <p class="names" id="names">From: [Your Name] → To: [Their Name]</p>
-    <p id="message">
-      You are the most special person in my life. Thank you for being you.
+    <h1>💌 To My </h1>
+    <p>
+      To <span class="names">Rachana</span>,<br><br>
+      You are not just my love; you are my home, my peace, and my greatest dream.  
+      With every heartbeat, I fall in love with you a little more.  
+      I promise to stand by you, cherish you, and walk beside you through every season of life.<br><br>
+      From <span class="names">Rahul</span>
     </p>
+
+    <!-- Share buttons -->
+    <div class="share-buttons">
+      <a href="mailto:?subject=My Valentine's Wish&body=Hey! I made a special Valentine's page for you: https://yourname.github.io/valentine.html" class="btn btn-primary">
+        📧 Email the Link
+      </a>
+      <a href="sms:?&body=Hey! I made a special Valentine's page for you: https://yourname.github.io/valentine.html" class="btn btn-outline">
+        💬 SMS the Link
+      </a>
+    </div>
   </div>
 
   <script>
-    // === CUSTOMIZE THESE ===
-    const YOUR_NAME = "Alex";
-    const THEIR_NAME = "Taylor";
-    const WISH_TEXT = "You make every day brighter. I’m so lucky to have you in my life. Happy Valentine’s Day! 💖";
+    // Customize these values
+    const NAME1 = "Rachana";
+    const NAME2 = "Yaswanth";
+    const WISH = `
+      You are not just my love; you are my home, my peace, and my greatest dream.
+      With every heartbeat, I fall in love with you a little more.
+      I promise to stand by you, cherish you, and walk beside you through every season of life.
+    `;
 
-    document.getElementById("names").textContent = `From: ${YOUR_NAME} → To: ${THEIR_NAME}`;
-    document.getElementById("message").textContent = WISH_TEXT;
+    document.querySelector(".names:nth-of-type(1)").textContent = NAME1;
+    document.querySelector(".names:nth-of-type(2)").textContent = NAME2;
+    document.querySelector("p").innerHTML = `
+      To <span class="names">${NAME1}</span>,<br><br>
+      ${WISH}<br><br>
+      From <span class="names">${NAME2}</span>
+    `;
   </script>
+
 </body>
 </html>
